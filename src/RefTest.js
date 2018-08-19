@@ -3,15 +3,20 @@ import Gap from "./Gap";
 import Solution from "./Solution";
 
 class RefTest extends React.Component {
-  firstGap = React.createRef();
+  gapRefs = [];
 
   state = {
     selectedGap: null
   };
 
   componentDidMount() {
-    this.setSelectedGap(this.firstGap.current);
+    const { selectedGapIndex } = this.state;
+    this.setSelectedGap(this.gapRefs[0]);
   }
+
+  setGapRef = ref => {
+    this.gapRefs.push(ref);
+  };
 
   setSelectedGap = selectedGap => {
     const { selectedGap: prevGap } = this.state;
@@ -21,19 +26,26 @@ class RefTest extends React.Component {
   };
 
   handleClickGap = that => {
-    this.setSelectedGap(that);
+    that && this.setSelectedGap(that);
   };
 
   handleFillGap = value => {
-    this.state.selectedGap.doFill(value);
+    const { selectedGap } = this.state;
+    selectedGap.doFill(value);
+    this.goToNextGap(selectedGap);
+  };
+
+  goToNextGap = selectedGap => {
+    const index = this.gapRefs.indexOf(selectedGap);
+    this.gapRefs[index + 1] && this.setSelectedGap(this.gapRefs[index + 1]);
   };
 
   render() {
     return (
       <div>
         <div className="gap-wrap">
-          <Gap ref={this.firstGap} onClick={this.handleClickGap} />
-          <Gap onClick={this.handleClickGap} />
+          <Gap ref={this.setGapRef} onClick={this.handleClickGap} />
+          <Gap ref={this.setGapRef} onClick={this.handleClickGap} />
         </div>
         <div>
           <Solution onClick={this.handleFillGap} value="foo" />
