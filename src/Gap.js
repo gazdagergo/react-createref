@@ -11,10 +11,19 @@ class Gap extends React.Component {
     this.setState({ selected: true });
   };
 
+  doDeselect = () => {
+    this.setState({ selected: false });
+  };
+
   doFill = value => {
     this.setState({
       value
     });
+  };
+
+  handleClick = () => {
+    const { onClick } = this.props;
+    onClick(this);
   };
 
   render() {
@@ -25,7 +34,7 @@ class Gap extends React.Component {
         className={classnames("gap", {
           gap__selected: selected
         })}
-        onClick={onClick}
+        onClick={this.handleClick}
       >
         {value}
       </div>
