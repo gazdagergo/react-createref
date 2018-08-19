@@ -3,14 +3,14 @@ import Gap from "./Gap";
 import Solution from "./Solution";
 
 class RefTest extends React.Component {
-  gapRef = React.createRef();
+  firstGap = React.createRef();
 
   state = {
     selectedGap: null
   };
 
   componentDidMount() {
-    this.setSelectedGap(this.gapRef.current);
+    this.setSelectedGap(this.firstGap.current);
   }
 
   setSelectedGap = selectedGap => {
@@ -26,15 +26,19 @@ class RefTest extends React.Component {
 
   handleFillGap = value => {
     this.state.selectedGap.doFill(value);
-    // this.gapRef.current.doFill(value);
   };
 
   render() {
     return (
       <div>
-        <Gap ref={this.gapRef} onClick={this.handleClickGap} />
-        <Gap onClick={this.handleClickGap} />
-        <Solution onClick={this.handleFillGap} />
+        <div className="gap-wrap">
+          <Gap ref={this.firstGap} onClick={this.handleClickGap} />
+          <Gap onClick={this.handleClickGap} />
+        </div>
+        <div>
+          <Solution onClick={this.handleFillGap} value="foo" />
+          <Solution onClick={this.handleFillGap} value="bar" />
+        </div>
       </div>
     );
   }

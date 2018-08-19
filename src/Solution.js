@@ -1,19 +1,32 @@
 import React, { Component } from "react";
+import classnames from "classnames";
 
 class Solution extends Component {
-  state = {
-    value: "bar"
-  };
-
   handleClick = () => {
-    const { onClick } = this.props;
-    const { value } = this.state;
+    const { isPicked } = this.state;
+    if (isPicked) return false;
+    const { onClick, value } = this.props;
+    this.setState({ isPicked: true });
     onClick(value);
   };
 
+  state = {
+    isPicked: false
+  };
+
   render() {
-    const { value } = this.state;
-    return <div onClick={this.handleClick}>{value}</div>;
+    const { value } = this.props;
+    const { isPicked } = this.state;
+    return (
+      <div
+        className={classnames("solution", {
+          solution__picked: isPicked
+        })}
+        onClick={this.handleClick}
+      >
+        {value}
+      </div>
+    );
   }
 }
 
