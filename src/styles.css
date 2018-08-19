@@ -2,3 +2,14 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.gap {
+  display: inline-block;
+  border: 2px solid brown;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.gap__selected {
+  background-color: lightpink;
+}

@@ -1,25 +1,26 @@
 import React from "react";
-import CustomTextInput from "./CustomTextInput";
-import CustomTextInput2 from "./CustomTextInput2";
+import Gap from "./Gap";
+import Solution from "./Solution";
 
-class AutoFocusTextInput extends React.Component {
-  constructor() {
-    super();
-    this.textInput = React.createRef();
-  }
+class RefTest extends React.Component {
+  gapRef = React.createRef();
 
-  componentDidMount() {
-    this.textInput.current.focusTextInput();
-  }
+  handleClickGap = () => {
+    this.gapRef.current.doSelect();
+  };
+
+  handleFillGap = value => {
+    this.gapRef.current.doFill(value);
+  };
 
   render() {
     return (
       <div>
-        <CustomTextInput ref={this.textInput} />
-        <CustomTextInput2 ref={this.textInput} />
+        <Gap ref={this.gapRef} onClick={this.handleClickGap} />
+        <Solution onClick={this.handleFillGap} />
       </div>
     );
   }
 }
 
-export default AutoFocusTextInput;
+export default RefTest;
